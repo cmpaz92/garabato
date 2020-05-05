@@ -1,5 +1,6 @@
 import { SocketService } from './../socket.service';
 import { Component, OnInit } from '@angular/core';
+import { isNull } from 'util';
 
 @Component({
   selector: 'app-chat',
@@ -8,8 +9,11 @@ import { Component, OnInit } from '@angular/core';
   providers: [SocketService],
 })
 export class ChatComponent implements OnInit {
-  user: String;
-  room: String;
+  joinTitle = 'Join';
+  alert = false;
+  chatroom: String = null;
+  user: String = null;
+  room: String = null;
   messageText: String;
   messageArray: Array<{ user: String; message: String }> = [];
   constructor(private _socketService: SocketService) {
@@ -25,19 +29,38 @@ export class ChatComponent implements OnInit {
   }
 
   join() {
-    this._socketService.joinRoom({ user: this.user, room: this.room });
+    if (!isNull(this.room) && !isNull(this.user)) {
+      this._socketService.joinRoom({ user: this.user, room: this.room });
+      this.chatroom = this.room;
+      this.joinTitle = 'Have fun!';
+    } else {
+      this.alertMessage();
+    }
   }
 
   leave() {
     this._socketService.leaveRoom({ user: this.user, room: this.room });
+    this.chatroom = null;
+    this.joinTitle = 'Join';
   }
 
   sendMessage() {
-    this._socketService.sendMessage({
-      user: this.user,
-      room: this.room,
-      message: this.messageText,
-    });
+    if (!isNull(this.room) && !isNull(this.user)) {
+      this._socketService.sendMessage({
+        user: this.user,
+        room: this.room,
+        message: this.messageText,
+      });
+    } else {
+      this.alertMessage();
+    }
+  }
+
+  alertMessage() {
+    this.alert = true;
+    setTimeout(() => {
+      this.alert = false;
+    }, 3200);
   }
 
   ngOnInit(): void {}

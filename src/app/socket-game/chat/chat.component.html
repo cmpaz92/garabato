@@ -1,10 +1,16 @@
 <div class="title"><h1>Chat</h1></div>
 <div class="chat">
-  <input [(ngModel)]="user" type="text" placeholder="User" />
-  <input [(ngModel)]="room" type="text" placeholder="Room" />
+  <div class="alert" *ngIf="alert">
+    <span>User & Room are required!</span>
+  </div>
+  <input [(ngModel)]="user" type="text" placeholder="User" required />
+  <input [(ngModel)]="room" type="text" placeholder="Room" required />
   <div class="joinLeave">
-    <button class="joinLeaveButton" (click)="join()">Join</button>
+    <button class="joinLeaveButton" (click)="join()">{{ joinTitle }}</button>
     <button class="joinLeaveButton" (click)="leave()">Leave</button>
+  </div>
+  <div class="chatroom">
+    Room: <strong>{{ chatroom }}</strong>
   </div>
   <div class="windowChat">
     <div class="joinLeaveMessage" *ngFor="let item of messageArray">
