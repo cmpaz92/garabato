@@ -1,0 +1,99 @@
+.chat {
+  background-color: white;
+  border-radius: 7px;
+  padding: 10px 20px 10px 20px;
+  height: 500px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.windowChat {
+  height: 400px;
+  margin: 5px;
+  border: solid 3px #cfd6c9;
+  padding: 10px;
+  color: black;
+  font-size: 1rem;
+  font-family: "Roboto", sans-serif;
+  overflow: scroll;
+}
+
+.joinLeave {
+  display: flex;
+  justify-content: space-between;
+}
+
+.joinLeaveButton {
+  width: 50%;
+}
+
+.joinLeaveMessage {
+  padding-bottom: 10px;
+}
+
+.alert {
+  background-color: rgb(179, 79, 79);
+  border-radius: 4px;
+  z-index: 1;
+  color: white;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 13px;
+  font-family: "Roboto", sans-serif;
+  width: fit-content;
+  animation: 400ms 0s 1 slideInFromLeft;
+}
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(+200%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.chatroom {
+  width: fit-content;
+  margin: 5px;
+  padding: 10px 5px;
+  font-family: "Roboto", sans-serif;
+  background-color: rgb(255, 136, 136);
+  color: white;
+}
+input {
+  margin: 5px;
+  height: 20px;
+  font-family: "Roboto", sans-serif;
+  font-size: 1em;
+  outline: none;
+  word-wrap: break-word;
+}
+
+input.messageInHere {
+  height: 100px;
+  padding: 10px;
+  word-wrap: break-word;
+}
+
+button {
+  margin: 5px;
+  height: 30px;
+  box-shadow: none;
+  border: none;
+  background-color: grey;
+  color: white;
+  font-family: "Unica One", cursive;
+  font-size: 1em;
+  cursor: pointer;
+  outline: none;
+  padding: 5px 0px;
+}
+
+button:hover {
+  background-color: black;
+  transition: 200ms ease;
+}

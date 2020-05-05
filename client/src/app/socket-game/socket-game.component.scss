@@ -1,33 +1,17 @@
 .top {
   display: flex;
-  font-family: "Unica One", cursive;
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
 
 .left {
-  width: 50%;
+  width: 51%;
   margin-left: 10px;
 }
 
 .right {
   width: 30%;
   margin-right: 10px;
-}
-
-.chat {
-  background-color: white;
-  border-radius: 7px;
-  padding: 2px 20px 2px 20px;
-}
-
-.title {
-  padding: 0px 10px;
-  width: fit-content;
-  border-radius: 3px;
-  margin: auto;
-  text-align: center;
-  background-color: white;
 }
 
 #canvas {
