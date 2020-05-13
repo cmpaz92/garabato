@@ -2,7 +2,7 @@ const Express = require("express")();
 const Http = require("http").Server(Express);
 const Socketio = require("socket.io")(Http);
 Http.listen(3000, () => {
-  console.log("Server is runnnnning");
+  console.log("Server is running");
 });
 
 // const express = require("express");
@@ -17,10 +17,61 @@ var position = {
   y: 400,
 };
 
-const plyers = [];
+const players = [];
+
+function Player(id, user, room, x, y) {
+  this.id = id;
+  this.user = user;
+  this.romm = room;
+  this.x = x;
+  this.y = y;
+}
+
+// setInterval(heartbeat, 3000);
+
+// function heartbeat() {
+//   Socketio.emit("heartbeat", players);
+// }
 
 Socketio.on("connection", (socket) => {
-  console.log("hi", socket.id);
+  socket.on("newPlayer", (data) => {
+    socket.join(data.room);
+    player = new Player(socket.id, data.user, data.room, data.x, data.y);
+    players.push(player);
+
+    Socketio.emit("createPlayer", players);
+    socket.broadcast.to(data.room).emit("showNewPlayer", players);
+  });
+
+  socket.on("move", (data) => {
+    var rect;
+    for (var i = 0; i < players.length; i++) {
+      if (socket.id === players[i].id) {
+        rect = players[i];
+        rect.x = data.x;
+        rect.y = data.y;
+      }
+    }
+  });
+
+  socket.on("update", (data) => {
+    console.log(
+      socket.id + " " + data.x + " " + data.y + " " + data.w + " " + data.h
+    );
+    var rect;
+    for (var i = 0; i < rect.length; i++) {
+      if (socket.id === players[i].id) {
+        rect = players[i];
+      }
+    }
+
+    rect.x = data.x;
+    rect.y = data.y;
+    rect.w = data.w;
+    rect.h = data.h;
+    // player = new Player(socket.id, data.x, data.y, data.w, data.h);
+    // players.push(player);
+  });
 
   socket.on("join", (data) => {
     socket.join(data.room);
@@ -38,6 +89,7 @@ Socketio.on("connection", (socket) => {
       message: " left",
     });
     socket.leave(data.room);
+    Socketio.emit("deletePlayer", players);
   });
 
   socket.on("message", (data) => {
@@ -45,26 +97,5 @@ Socketio.on("connection", (socket) => {
       user: data.user,
       message: data.message,
     });
-  });
-
-  socket.emit("position", position);
-
-  socket.on("move", (data) => {
-    if (data === "left") {
-      position.x = position.x - 20;
-      Socketio.emit("position", position);
-    }
-    if (data === "right") {
-      position.x = position.x + 20;
-      Socketio.emit("position", position);
-    }
-    if (data === "up") {
-      position.y = position.y - 20;
-      Socketio.emit("position", position);
-    }
-    if (data === "down") {
-      position.y = position.y + 20;
-      Socketio.emit("position", position);
-    }
   });
 });
