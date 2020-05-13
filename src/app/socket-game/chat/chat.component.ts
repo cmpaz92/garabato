@@ -12,6 +12,8 @@ export class ChatComponent implements OnInit {
   joinTitle = 'Join';
   alert = false;
   chatroom: String = null;
+  x = Math.floor(Math.random() * 100);
+  y = Math.floor(Math.random() * 100);
   user: String = null;
   room: String = null;
   messageText: String;
@@ -33,6 +35,12 @@ export class ChatComponent implements OnInit {
       this._socketService.joinRoom({ user: this.user, room: this.room });
       this.chatroom = this.room;
       this.joinTitle = 'Have fun!';
+      this._socketService.newPlayer({
+        user: this.user,
+        room: this.room,
+        x: this.x,
+        y: this.y,
+      });
     } else {
       this.alertMessage();
     }
@@ -51,6 +59,7 @@ export class ChatComponent implements OnInit {
         room: this.room,
         message: this.messageText,
       });
+      this._socketService;
     } else {
       this.alertMessage();
     }
