@@ -40,6 +40,8 @@ Socketio.on("connection", (socket) => {
     players.push(player);
 
     Socketio.emit("createPlayer", players);
+    console.log(players);
+    console.log(socket.id);
     socket.broadcast.to(data.room).emit("showNewPlayer", players);
   });
 
