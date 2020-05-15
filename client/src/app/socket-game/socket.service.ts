@@ -1,60 +1,59 @@
-import { Globals } from './../global';
 import { Observable } from 'rxjs';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit, Input } from '@angular/core';
+import io from 'socket.io-client';
 
 @Injectable()
 export class SocketService {
-  providers: [SocketService, Globals];
+  socket = io('http://localhost:3000');
 
-  constructor(public globals: Globals) {}
-
+  providers: [SocketService];
   joinRoom(data) {
-    this.globals.socket.emit('join', data);
-    console.log(this.globals.socket);
+    this.socket.emit('join', data);
+    console.log(this.socket);
   }
   newUserJoined() {
     let observable = new Observable<{ user: String; message: String }>(
       (observer) => {
-        this.globals.socket.on('new user joined', (data) => {
+        this.socket.on('new user joined', (data) => {
           observer.next(data);
         });
         return () => {
-          this.globals.socket.disconnect();
+          this.socket.disconnect();
         };
       }
     );
     return observable;
   }
   newPlayer(data) {
-    this.globals.socket.emit('newPlayer', data);
+    this.socket.emit('newPlayer', data);
   }
   leaveRoom(data) {
-    this.globals.socket.emit('leave', data);
+    this.socket.emit('leave', data);
   }
   userLeft() {
     let observable = new Observable<{ user: String; message: String }>(
       (observer) => {
-        this.globals.socket.on('left room', (data) => {
+        this.socket.on('left room', (data) => {
           observer.next(data);
         });
         return () => {
-          this.globals.socket.disconnect();
+          this.socket.disconnect();
         };
       }
     );
     return observable;
   }
   sendMessage(data) {
-    this.globals.socket.emit('message', data);
+    this.socket.emit('message', data);
   }
   newMessageReceived() {
     let observable = new Observable<{ user: String; message: String }>(
       (observer) => {
-        this.globals.socket.on('new message', (data) => {
+        this.socket.on('new message', (data) => {
           observer.next(data);
         });
         return () => {
-          this.globals.socket.disconnect();
+          this.socket.disconnect();
         };
       }
     );
