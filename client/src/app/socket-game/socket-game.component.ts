@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import io from 'socket.io-client';
 
 @Component({
@@ -8,5 +8,4 @@ import io from 'socket.io-client';
 })
 export class SocketGameComponent {
   socket = io('http://localhost:3000');
-  lol = 'hey';
 }

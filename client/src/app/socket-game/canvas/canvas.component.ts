@@ -1,21 +1,18 @@
-import { SocketService } from './../socket.service';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import io from 'socket.io-client';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-canvas',
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss'],
-  providers: [SocketService],
 })
 export class CanvasComponent implements OnInit {
+  @Input() socket: any;
   @ViewChild('game')
   private gameCanvas: ElementRef;
   public context: any;
   public players: any[] = [];
   public player: any;
   public id: Number;
-  private socket = io('http://localhost:3000');
 
   public ngOnInit() {
     console.log(this.socket);
@@ -46,7 +43,6 @@ export class CanvasComponent implements OnInit {
     });
 
     this.socket.on('createPlayer', (data: any) => {
-      // console.log(this.socket.id);
       for (let i = data.length - 1; i >= 0; i--) {
         if (data[i].id == this.socket.id) {
           this.player = data[i];
