@@ -1,11 +1,9 @@
 <div class="top">
   <div class="left">
-    <div class="title"><h1>Play</h1></div>
-
-    <canvas #game id="canvas" width="700,5" height="500,5"></canvas>
+    <app-canvas [socket]="socket"></app-canvas>
   </div>
 
   <div class="right">
-    <app-chat></app-chat>
+    <app-chat [socket]="socket"></app-chat>
   </div>
 </div>
