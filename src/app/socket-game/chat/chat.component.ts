@@ -1,14 +1,14 @@
-import { SocketService } from './../socket.service';
-import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Component, OnInit, Input } from '@angular/core';
 import { isNull } from 'util';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
-  providers: [SocketService],
 })
 export class ChatComponent implements OnInit {
+  @Input() socket: any;
   joinTitle = 'Join';
   alert = false;
   chatroom: String = null;
@@ -18,24 +18,25 @@ export class ChatComponent implements OnInit {
   room: String = null;
   messageText: String;
   messageArray: Array<{ user: String; message: String }> = [];
-  constructor(private _socketService: SocketService) {
-    this._socketService.newUserJoined().subscribe((data) => {
+
+  ngOnInit(): void {
+    this.newUserJoined().subscribe((data) => {
       this.messageArray.push(data);
     });
-    this._socketService.userLeft().subscribe((data) => {
+    this.userLeft().subscribe((data) => {
       this.messageArray.push(data);
     });
-    this._socketService.newMessageReceived().subscribe((data) => {
+    this.newMessageReceived().subscribe((data) => {
       this.messageArray.push(data);
     });
   }
 
   join() {
     if (!isNull(this.room) && !isNull(this.user)) {
-      this._socketService.joinRoom({ user: this.user, room: this.room });
+      this.joinRoom({ user: this.user, room: this.room });
       this.chatroom = this.room;
       this.joinTitle = 'Have fun!';
-      this._socketService.newPlayer({
+      this.newPlayer({
         user: this.user,
         room: this.room,
         x: this.x,
@@ -47,19 +48,18 @@ export class ChatComponent implements OnInit {
   }
 
   leave() {
-    this._socketService.leaveRoom({ user: this.user, room: this.room });
+    this.leaveRoom({ user: this.user, room: this.room });
     this.chatroom = null;
     this.joinTitle = 'Join';
   }
 
-  sendMessage() {
+  sendMessageToChat() {
     if (!isNull(this.room) && !isNull(this.user)) {
-      this._socketService.sendMessage({
+      this.sendMessage({
         user: this.user,
         room: this.room,
         message: this.messageText,
       });
-      this._socketService;
     } else {
       this.alertMessage();
     }
@@ -72,5 +72,58 @@ export class ChatComponent implements OnInit {
     }, 3200);
   }
 
-  ngOnInit(): void {}
+  //--------------------------------Socket Functionality------------------------
+
+  joinRoom(data: any) {
+    this.socket.emit('join', data);
+    console.log(this.socket);
+  }
+  newUserJoined() {
+    let observable = new Observable<{ user: String; message: String }>(
+      (observer) => {
+        this.socket.on('new user joined', (data) => {
+          observer.next(data);
+        });
+        return () => {
+          this.socket.disconnect();
+        };
+      }
+    );
+    return observable;
+  }
+  newPlayer(data: any) {
+    this.socket.emit('newPlayer', data);
+  }
+  leaveRoom(data: any) {
+    this.socket.emit('leave', data);
+  }
+  userLeft() {
+    let observable = new Observable<{ user: String; message: String }>(
+      (observer) => {
+        this.socket.on('left room', (data) => {
+          observer.next(data);
+        });
+        return () => {
+          this.socket.disconnect();
+        };
+      }
+    );
+    return observable;
+  }
+  sendMessage(data: any) {
+    this.socket.emit('message', data);
+  }
+  newMessageReceived() {
+    let observable = new Observable<{ user: String; message: String }>(
+      (observer) => {
+        this.socket.on('new message', (data) => {
+          observer.next(data);
+        });
+        return () => {
+          this.socket.disconnect();
+        };
+      }
+    );
+    return observable;
+  }
 }
