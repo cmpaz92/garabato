@@ -12,8 +12,6 @@ export class ChatComponent implements OnInit {
   joinTitle = 'Join';
   alert = false;
   chatroom: String = null;
-  x = Math.floor(Math.random() * 100);
-  y = Math.floor(Math.random() * 100);
   user: String = null;
   room: String = null;
   messageText: String;
@@ -33,33 +31,33 @@ export class ChatComponent implements OnInit {
 
   join() {
     if (!isNull(this.room) && !isNull(this.user)) {
-      this.joinRoom({ user: this.user, room: this.room });
+      this.joinRoom(this.user, this.room);
       this.chatroom = this.room;
       this.joinTitle = 'Have fun!';
-      this.newPlayer({
-        user: this.user,
-        room: this.room,
-        x: this.x,
-        y: this.y,
-      });
+      this.newPlayer(this.user, this.room);
     } else {
       this.alertMessage();
     }
   }
 
   leave() {
-    this.leaveRoom({ user: this.user, room: this.room });
+    this.leaveRoom(this.user, this.room);
     this.chatroom = null;
     this.joinTitle = 'Join';
   }
 
   sendMessageToChat() {
     if (!isNull(this.room) && !isNull(this.user)) {
-      this.sendMessage({
-        user: this.user,
-        room: this.room,
-        message: this.messageText,
-      });
+      this.sendMessage(this.user, this.room, this.messageText);
+    } else {
+      this.alertMessage();
+    }
+  }
+
+  startGame(){
+    if (!isNull(this.room) && !isNull(this.user)) {
+      this.socket.emit('startGame', this.room);
+    //  console.log(this.user + " has started the game in " + this.room);
     } else {
       this.alertMessage();
     }
@@ -74,8 +72,8 @@ export class ChatComponent implements OnInit {
 
   //--------------------------------Socket Functionality------------------------
 
-  joinRoom(data: any) {
-    this.socket.emit('join', data);
+  joinRoom(user:String, room:String) {
+    this.socket.emit('join', user, room);
     console.log(this.socket);
   }
   newUserJoined() {
@@ -91,11 +89,11 @@ export class ChatComponent implements OnInit {
     );
     return observable;
   }
-  newPlayer(data: any) {
-    this.socket.emit('newPlayer', data);
+  newPlayer(user: String, room: String) {
+    this.socket.emit('newPlayer', user, room);
   }
-  leaveRoom(data: any) {
-    this.socket.emit('leave', data);
+  leaveRoom(user:String, room:String) {
+    this.socket.emit('leave', user, room);
   }
   userLeft() {
     let observable = new Observable<{ user: String; message: String }>(
@@ -110,8 +108,8 @@ export class ChatComponent implements OnInit {
     );
     return observable;
   }
-  sendMessage(data: any) {
-    this.socket.emit('message', data);
+  sendMessage(userName:String, room:String, messageText:String) {
+    this.socket.emit('message', userName, room, messageText);
   }
   newMessageReceived() {
     let observable = new Observable<{ user: String; message: String }>(
