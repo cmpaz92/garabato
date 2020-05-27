@@ -1,16 +1,13 @@
 <div class="title"><h1>Pictionary</h1></div>
 <div class="gamePannel">
-    <p style="text-align:left;">
-        Round Time: <strong>{{ countdownTime }}</strong>
-        <span style="float:right;">
-            Current Word: <strong>{{ currentWord }}</strong>
-        </span>
-    </p>
+  <p style="text-align: left;">
+    Round Time: <strong>{{ countdownTime }}</strong>
+    <span style="float: right;">
+      Current Word: <strong>{{ currentWord }}</strong>
+    </span>
+  </p>
 </div>
-<canvas #game id="canvas" width="700,5" height="500,5"> 
-
-</canvas>
-<div class="buttonPannel">
-    <button (click)="clearCanvasRequest()">Clear</button>
+<canvas #game id="canvas" width="700,5" height="500,5"> </canvas>
+<div class="buttonPannel" style="margin-top: 10px;">
+  <button (click)="clearCanvasRequest()">Clear</button>
 </div>
-
