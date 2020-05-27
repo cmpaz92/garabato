@@ -3,8 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  authapiPath: 'http://localhost:4000',
+  socketapiPath: 'http://localhost:3000',
 };
+/*export const environment = {
+  production: false,
+  apiPath: 'http://localhost:1337',
+};*/
+
 
 /*
  * For easier debugging in development mode, you can import the following file

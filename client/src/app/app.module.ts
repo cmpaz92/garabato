@@ -4,19 +4,24 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SocketGameComponent } from './socket-game/socket-game.component';
-import { ChatComponent } from './socket-game/chat/chat.component';
-import { CanvasComponent } from './socket-game/canvas/canvas.component';
+import { AuthModule } from './modules/auth/auth.module';
+import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from './modules/shared/shared.module';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    SocketGameComponent,
-    ChatComponent,
-    CanvasComponent,
+
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    SharedModule,
+    AuthModule],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
