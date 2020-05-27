@@ -16,3 +16,39 @@ ul {
   margin-left: 0px;
   padding-left: 0px;
 }
+
+button {
+  margin: 5px;
+  height: 30px;
+  box-shadow: none;
+  border: none;
+  background-color: grey;
+  color: white;
+  font-family: "Unica One", cursive;
+  font-size: 1em;
+  cursor: pointer;
+  outline: none;
+  padding: 5px 0px;
+}
+
+button:hover {
+  background-color: black;
+  transition: 200ms ease;
+}
+
+.buttonPannel {
+  background-color: white;
+  border-radius: 7px;
+  padding: 10px 20px 10px 20px;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.gamePannel {
+  color: black;
+  font-size: 2rem;
+  font-family: "Roboto", sans-serif;
+  
+}
