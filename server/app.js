@@ -1,8 +1,7 @@
 const Express = require("express")();
-const cors = require('cors');
-Express.use(cors);
 const Http = require("http").Server(Express);
 const Socketio = require("socket.io")(Http);
+Socketio.origins('*:*');
 
 var words = require('./data.json');
 let rooms = new Map();
