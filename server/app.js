@@ -1,11 +1,16 @@
 const Express = require("express")();
+const cors = require('cors');
+Express.use(cors);
 const Http = require("http").Server(Express);
 const Socketio = require("socket.io")(Http);
+
+var words = require('./data.json');
+let rooms = new Map();
+const ROUND_TIME = 30;
+
 Http.listen(3000, () => {
   console.log("Server is running");
 });
-
-const ROUND_TIME = 30;
 
 function user(id, userName) {
   this.id = id;
@@ -39,9 +44,11 @@ function findPlayerByName (room, name) {
 function startGame (room) {
   var players = rooms.get(room).players;
   // select Player to draw
+  var mots = words.data;
   var playerIndex = Math.floor(Math.random() * players.length); // get player, who has to draw
-  var wordIndex = Math.floor(Math.random() * words.length); // get random word
-  rooms.get(room).currentWord = words[wordIndex];
+  var wordIndex = Math.floor(Math.random() * mots.length); // get random word
+  rooms.get(room).currentWord = mots[wordIndex];
+  console.log(mots[wordIndex]);
   rooms.get(room).peopleGuessing = players.length - 1;
 
   console.log("-----------------------------------------");
@@ -58,10 +65,10 @@ function startGame (room) {
       players[i].stillGuessing = false; // player who draws doesn't guess
       Socketio.to(players[i].id).emit("new message", {
         user: "Server",
-        message: "Your word is: " + words[wordIndex],
+        message: "Your word is: " + mots[wordIndex],
       });
       Socketio.to(players[i].id).emit("enableDrawing", true);
-      Socketio.to(players[i].id).emit("setWordToDraw", words[wordIndex]);
+      Socketio.to(players[i].id).emit("setWordToDraw", mots[wordIndex]);
     } else {
       players[i].stillGuessing = true; // these players have to guess
       Socketio.to(players[i].id).emit("new message", {
@@ -110,8 +117,8 @@ function startCountdownTimer(seconds, room) {
   }, 1000);
 }
 
-let words = ["apple", "bird", "city", "anger", "shower", "car"]; // TODO add words, maybe read that stuff from another file
-let rooms = new Map();
+//let words = ["apple", "bird", "city", "anger", "shower", "car"]; // TODO add words, maybe read that stuff from another file
+
 
 Socketio.on("connection", (socket) => {
   socket.on("newPlayer", (userName, room) => {
