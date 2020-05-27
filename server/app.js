@@ -12,7 +12,8 @@ var words = require('./data.json');
 let rooms = new Map();
 const ROUND_TIME = 30;
 
-Http.listen(3000, () => {
+var port = process.env.PORT || 3000;
+Http.listen(port, () => {
   console.log("Server is running");
 });
 
