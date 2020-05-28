@@ -174,9 +174,17 @@ Socketio.on("connection", (socket) => {
     Socketio.in(room).emit("clearCanvas"); // new drawing -> clear canvas for everybody in the room
   });
 
+  socket.on("setOrignRequest", (room, posX, posY) => {
+    Socketio.in(room).emit("setOrign", {
+      posX: posX,
+      posY: posY,
+    });
+  });
+
   socket.on("join", (userName, room) => {
     //socket.join(room); // already joining on new Player TODO decide which one is used 
     console.log(userName + " joined the room " + room);
+    Socketio.to(rooms.get(room).players[findPlayerByName(room, userName)].id).emit("setRoom", room);
     socket.broadcast.to(room).emit("new user joined", {
       user: "Server",
       message: userName + " has joined the room!",

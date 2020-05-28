@@ -47,6 +47,8 @@ export class CanvasComponent implements OnInit {
     this.clearCanvasObsverble().subscribe();
     this.countdownObsverble().subscribe();
     this.setWordToDraw().subscribe();
+    this.setOrignObsverble().subscribe();
+    this.setRoomObsverble().subscribe();
 
     document.onmousedown = (e) => {
 
@@ -55,6 +57,7 @@ export class CanvasComponent implements OnInit {
         // event get mouse position in world space, but drawing is done in local space
         // therefore the the position first needs to be mapped in local space
         this.drawOrigin = [(e.clientX - this.rect.left) * this.scaleX, (e.clientY - this.rect.top)* this.scaleY];
+        this.setOrignRequest ((e.clientX - this.rect.left) * this.scaleX, (e.clientY - this.rect.top)* this.scaleY);
         this.isDrawing = true;
       }
     };
@@ -118,6 +121,10 @@ export class CanvasComponent implements OnInit {
     }
   }
 
+  setOrignRequest (x: number, y: number) {
+    this.socket.emit('setOrignRequest', this.roomID, x, y);
+  }
+
   clearCanvas() {
     this.context.clearRect(
       0,
@@ -143,6 +150,34 @@ export class CanvasComponent implements OnInit {
     return observable;
   }
 
+  setOrignObsverble() {
+    let observable = new Observable(
+      (observer) => {
+        this.socket.on('setOrign', (pos) => {
+          this.drawOrigin = [pos.posX, pos.posY];
+          observer.next();
+        });
+        return () => {
+          this.socket.disconnect();
+        };
+      }
+    );
+    return observable;
+  }
+  setRoomObsverble() {
+    let observable = new Observable(
+      (observer) => {
+        this.socket.on('setRoom', (room) => {
+          this.roomID = room;
+          observer.next();
+        });
+        return () => {
+          this.socket.disconnect();
+        };
+      }
+    );
+    return observable;
+  }
   countdownObsverble() {
     let observable = new Observable(
       (observer) => {
@@ -162,7 +197,7 @@ export class CanvasComponent implements OnInit {
     let observable = new Observable<{ posX: number; posY: number }>(
       (observer) => {
         this.socket.on('update canvas', (pos) => {
-          console.log(this);
+          // console.log(this);
           // start drawing -> get start pos/ last pos and draw line (to avoid gaps between the mouse move event positons)
           this.context.beginPath();
           this.context.moveTo(this.drawOrigin[0], this.drawOrigin[1]);
