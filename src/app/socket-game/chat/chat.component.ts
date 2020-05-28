@@ -28,6 +28,7 @@ export class ChatComponent implements OnInit {
     this.newMessageReceived().subscribe((data) => {
       this.messageArray.push(data);
     });
+    this.getRoomsObersv().subscribe();
   }
 
   join() {
@@ -119,6 +120,22 @@ export class ChatComponent implements OnInit {
       (observer) => {
         this.socket.on('new message', (data) => {
           observer.next(data);
+        });
+        return () => {
+          this.socket.disconnect();
+        };
+      }
+    );
+    return observable;
+  }
+
+  getRoomsObersv() {
+    let observable = new Observable(
+      (observer) => {
+        this.socket.on('getRooms', (rooms:Array<String>) => {
+          for(let i = 0; i < rooms.length; i++)
+          console.log("All Rooms in Client Component: " + rooms[i]);
+          observer.next(rooms);
         });
         return () => {
           this.socket.disconnect();
