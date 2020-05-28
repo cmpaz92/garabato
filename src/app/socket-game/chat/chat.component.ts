@@ -32,11 +32,11 @@ export class ChatComponent implements OnInit {
 
   join() {
     if (!isNull(this.room) && !isNull(this.user)) {
-      this.joinRoom(this.user, this.room);
       this.chatroom = this.room;
       this.joinTitle = 'Have fun!';
       this.newPlayer(this.user, this.room);
       this.connected = true;
+      this.joinRoom(this.user, this.room);
     } else {
       this.alertMessage();
     }
