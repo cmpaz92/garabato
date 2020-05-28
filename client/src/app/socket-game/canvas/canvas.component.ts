@@ -28,6 +28,7 @@ export class CanvasComponent implements OnInit {
   public ngOnInit() {
     console.log(this.socket);
     this.roomID = 0; // TODO how do we want to set the room ID? On creation or have a set number of rooms?
+    this.drawOrigin = [0,0];
   }
 
   public ngAfterViewInit() {
@@ -35,6 +36,7 @@ export class CanvasComponent implements OnInit {
     this.rect = this.gameCanvas.nativeElement.getBoundingClientRect();
     this.scaleX = this.gameCanvas.nativeElement.width / this.rect.width, 
     this.scaleY = this.gameCanvas.nativeElement.height / this.rect.height; 
+    
 
     this.context.lineWidth = 3;
     this.context.lineCap = 'round';
@@ -47,6 +49,7 @@ export class CanvasComponent implements OnInit {
     this.setWordToDraw().subscribe();
 
     document.onmousedown = (e) => {
+
       if (this.drawingEnabled) {
         // only draw, when it is your turn to draw
         // event get mouse position in world space, but drawing is done in local space
@@ -159,6 +162,7 @@ export class CanvasComponent implements OnInit {
     let observable = new Observable<{ posX: number; posY: number }>(
       (observer) => {
         this.socket.on('update canvas', (pos) => {
+          console.log(this);
           // start drawing -> get start pos/ last pos and draw line (to avoid gaps between the mouse move event positons)
           this.context.beginPath();
           this.context.moveTo(this.drawOrigin[0], this.drawOrigin[1]);

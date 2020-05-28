@@ -1,6 +1,9 @@
 const Express = require("express")();
 const Http = require("http").Server(Express);
 const Socketio = require("socket.io")(Http);
+
+//Cors policy fix (Allow All)
+//Uncomment to allow fixed origin
 Socketio.origins((origin, callback) => {
  /* if (origin !== 'https://foo.example.com') {
       return callback('origin not allowed', false);
@@ -13,6 +16,7 @@ let rooms = new Map();
 const ROUND_TIME = 30;
 
 var port = process.env.PORT || 3000;
+
 Http.listen(port, () => {
   console.log("Server is running");
 });
@@ -122,13 +126,13 @@ function startCountdownTimer(seconds, room) {
   }, 1000);
 }
 
-//let words = ["apple", "bird", "city", "anger", "shower", "car"]; // TODO add words, maybe read that stuff from another file
-
-
 Socketio.on("connection", (socket) => {
   socket.on("newPlayer", (userName, room) => {
     socket.join(room);
     console.log("Test I am here");
+    for (let key of rooms.keys()) {
+      console.log(key);                   
+  }
     player = new user(socket.id, userName);
     if (rooms.has(room)){
       // room already exists -> add player
