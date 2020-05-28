@@ -35,6 +35,19 @@ function roomData (players) {
   this.timeIntervalBuffer; // the actual counter
 }
 
+function getRooms () {
+  var buffer = new Array (rooms.size);
+  var index = 0;
+  for (let key of rooms.keys()) {
+    console.log("All Rooms in App Component: " + key);
+    buffer[index]= key;
+    index++;
+  } 
+  for (let key of rooms.keys()) {
+    Socketio.in(key).emit("getRooms", buffer);
+  } 
+}
+
 function findPlayerByName (room, name) {
   var players = rooms.get(room).players;
   var playerIndex = -1;
