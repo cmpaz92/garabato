@@ -26,7 +26,6 @@ export class CanvasComponent implements OnInit {
   private drawOrigin: [number, number];
 
   public ngOnInit() {
-    console.log(this.socket);
     this.roomID = 0; // TODO how do we want to set the room ID? On creation or have a set number of rooms?
     this.drawOrigin = [0,0];
   }
@@ -40,7 +39,7 @@ export class CanvasComponent implements OnInit {
 
     this.context.lineWidth = 3;
     this.context.lineCap = 'round';
-    this.context.strokeStyle = 'white';
+    this.context.strokeStyle = '#aaa';
 
     this.enableDrawing().subscribe();
     this.updateCanvas().subscribe();
