@@ -5,7 +5,7 @@
 <input [(ngModel)]="room" type="text" placeholder="Room" required />
 <div class="joinLeave">
   <button class="joinLeaveButton" (click)="join()">{{ joinTitle }}</button>
-  <button class="joinLeaveButton" (click)="leave()">Leave</button>
+  
 </div>
 </div>
 <div class="chatcontainer" *ngIf="connected">
@@ -27,5 +27,6 @@
     <input type="text" class="messageInHere" [(ngModel)]="messageText" placeholder="Message..." />
     <button (click)="sendMessageToChat()">Send</button>
     <button (click)="startGame()">Start Next Round</button>
+    <button class="joinLeaveButton" (click)="leave()">Leave</button>
   </div>
 </div>
