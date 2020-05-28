@@ -11,8 +11,9 @@ export class ChatComponent implements OnInit {
   @Input() socket: any;
   joinTitle = 'Join';
   alert = false;
+  connected = false;
   chatroom: String = null;
-  user: String = null;
+  user: String = sessionStorage.getItem('loggedUser') ? sessionStorage.getItem('loggedUser') : "anonim";
   room: String = null;
   messageText: String;
   messageArray: Array<{ user: String; message: String }> = [];
@@ -35,6 +36,7 @@ export class ChatComponent implements OnInit {
       this.chatroom = this.room;
       this.joinTitle = 'Have fun!';
       this.newPlayer(this.user, this.room);
+      this.connected = true;
     } else {
       this.alertMessage();
     }
@@ -44,6 +46,7 @@ export class ChatComponent implements OnInit {
     this.leaveRoom(this.user, this.room);
     this.chatroom = null;
     this.joinTitle = 'Join';
+    this.connected = false;
   }
 
   sendMessageToChat() {

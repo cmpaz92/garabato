@@ -28,7 +28,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles/styles.scss"
             ],
             "scripts": []
           },
@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "garabato"
+    }
+  },
+  "defaultProject": "garabato",
+  "cli": {
+    "analytics": false
+  }
 }
