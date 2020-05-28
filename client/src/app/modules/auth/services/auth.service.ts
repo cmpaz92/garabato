@@ -41,6 +41,7 @@ export class AuthService {
         // if the login was successful the server responds with an auth token which will be saved
         console.log(response.user);
         this.setToken(response.token, response.user);
+        sessionStorage.setItem('loggedUser', response.user.username);
         console.log('response', response);
       }),
       catchError(error => {

@@ -4,7 +4,8 @@
 /*
 export const environment = {
   production: false,
-  authapiPath: 'http://localhost:4000',
+ authapiPath: 'http://localhost:4000',  
+ // authapiPath: 'https://garabatoauth.herokuapp.com',
   socketapiPath: 'http://localhost:3000',
 };
 */
