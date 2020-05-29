@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  authapiPath: 'https://garabatoauth.herokuapp.com',
+  socketapiPath: 'https://garabatosocket.herokuapp.com',
 };

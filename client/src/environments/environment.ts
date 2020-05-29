@@ -1,19 +1,15 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-/*
+
 export const environment = {
   production: false,
  authapiPath: 'http://localhost:4000',  
  // authapiPath: 'https://garabatoauth.herokuapp.com',
   socketapiPath: 'http://localhost:3000',
 };
-*/
-export const environment = {
-  production: true,
-  authapiPath: 'https://garabatoauth.herokuapp.com',
-  socketapiPath: 'https://garabatosocket.herokuapp.com',
-};
+
+
 
 
 /*
