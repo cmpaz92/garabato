@@ -62,6 +62,7 @@ export class ChatComponent implements OnInit {
     } else {
       this.alertMessage();
     }
+    this.scrollChat();
   }
 
   startGame(){
@@ -71,6 +72,7 @@ export class ChatComponent implements OnInit {
     } else {
       this.alertMessage();
     }
+    this.scrollChat();
   }
 
   alertMessage() {
@@ -78,6 +80,13 @@ export class ChatComponent implements OnInit {
     setTimeout(() => {
       this.alert = false;
     }, 3200);
+  }
+
+  scrollChat(){
+    var objDiv = document.getElementById("windowchat");
+    if(objDiv !=null){
+    objDiv.scrollTop = objDiv.scrollHeight;
+    }
   }
 
   //--------------------------------Socket Functionality------------------------
@@ -102,9 +111,14 @@ export class ChatComponent implements OnInit {
   newPlayer(user: String, room: String) {
     this.socket.emit('newPlayer', user, room);
   }
+
   leaveRoom(user:String, room:String) {
     this.socket.emit('leave', user, room);
+    this.connected = false;
+    this.messageText = "";
+    this.messageArray = [];
   }
+
   userLeft() {
     let observable = new Observable<{ user: String; message: String }>(
       (observer) => {
@@ -116,10 +130,12 @@ export class ChatComponent implements OnInit {
         };
       }
     );
+    this.scrollChat();
     return observable;
   }
   sendMessage(userName:String, room:String, messageText:String) {
     this.socket.emit('message', userName, room, messageText);
+    this.messageText = "";
   }
   newMessageReceived() {
     let observable = new Observable<{ user: String; message: String }>(
@@ -132,6 +148,7 @@ export class ChatComponent implements OnInit {
         };
       }
     );
+    this.scrollChat();
     return observable;
   }
 
