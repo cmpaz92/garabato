@@ -16,7 +16,7 @@
     <div class="chatroom">
       Room: <strong>{{ chatroom }}</strong>
     </div>
-    <div class="windowChat">
+    <div id="windowchat" class="windowChat">
       <div class="joinLeaveMessage" *ngFor="let item of messageArray">
         <span>
           <strong>{{ item.user }}:</strong>
@@ -24,9 +24,9 @@
         </span>
       </div>
     </div>
-    <input type="text" class="messageInHere" [(ngModel)]="messageText" placeholder="Message..." />
-    <button (click)="sendMessageToChat()">Send</button>
-    <button (click)="startGame()">Start Next Round</button>
-    <button class="joinLeaveButton" (click)="leave()">Leave</button>
+    <input type="text" id="chatInput" class="messageInHere" [(ngModel)]="messageText" placeholder="Message..." />
+    <button class="sendbtn" (click)="sendMessageToChat()">Send</button>
+    <button class="startbtn"(click)="startGame()">Start Next Round</button>
+    <button class="leavebtn joinLeaveButton" (click)="leave()">Leave</button>
   </div>
 </div>

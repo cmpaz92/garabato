@@ -69,6 +69,13 @@ body {
   text-align: center;
   background-color: white;
 }
+button{
+  &:hover {
+    background-color: #333;
+    transition: 200ms ease;
+    color: white;
+  }
+}
 
 nav {
   display: flex;
@@ -122,6 +129,7 @@ nav {
   -moz-border-radius: 8px 8px 8px 8px;
   -webkit-border-radius: 8px 8px 8px 8px;
 }
+
 form {
   input {
     margin-top: 20px;
@@ -151,9 +159,6 @@ form {
     height: 40px;
     width: 80px;
     margin: 10px;
-    &:hover {
-      color: #000000;
-      background-color: #ffffff;
-    }
+
   }
 }
