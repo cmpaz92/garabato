@@ -197,7 +197,6 @@ export class CanvasComponent implements OnInit {
     let observable = new Observable<{ posX: number; posY: number }>(
       (observer) => {
         this.socket.on('update canvas', (pos) => {
-          // console.log(this);
           // start drawing -> get start pos/ last pos and draw line (to avoid gaps between the mouse move event positons)
           this.context.beginPath();
           this.context.moveTo(this.drawOrigin[0], this.drawOrigin[1]);

@@ -28,7 +28,6 @@ export class ChatComponent implements OnInit {
     this.newMessageReceived().subscribe((data) => {
       this.messageArray.push(data);
     });
-    this.getRoomsObersv().subscribe();
     document.body.onkeydown = (e) => {
       if (e.keyCode === 13) {
         e.preventDefault();
@@ -149,22 +148,6 @@ export class ChatComponent implements OnInit {
       }
     );
     this.scrollChat();
-    return observable;
-  }
-
-  getRoomsObersv() {
-    let observable = new Observable(
-      (observer) => {
-        this.socket.on('getRooms', (rooms:Array<String>) => {
-          for(let i = 0; i < rooms.length; i++)
-          console.log("All Rooms in Client Component: " + rooms[i]);
-          observer.next(rooms);
-        });
-        return () => {
-          this.socket.disconnect();
-        };
-      }
-    );
     return observable;
   }
 }

@@ -35,19 +35,6 @@ function roomData (players) {
   this.timeIntervalBuffer; // the actual counter
 }
 
-function getRooms () {
-  var buffer = new Array (rooms.size);
-  var index = 0;
-  for (let key of rooms.keys()) {
-    console.log("All Rooms in App Component: " + key);
-    buffer[index]= key;
-    index++;
-  } 
-  for (let key of rooms.keys()) {
-    Socketio.in(key).emit("getRooms", buffer);
-  } 
-}
-
 function findPlayerByName (room, name) {
   var players = rooms.get(room).players;
   var playerIndex = -1;
@@ -195,7 +182,6 @@ Socketio.on("connection", (socket) => {
   });
 
   socket.on("join", (userName, room) => {
-    //socket.join(room); // already joining on new Player TODO decide which one is used 
     console.log(userName + " joined the room " + room);
     Socketio.to(rooms.get(room).players[findPlayerByName(room, userName)].id).emit("setRoom", room);
     socket.broadcast.to(room).emit("new user joined", {
@@ -220,8 +206,7 @@ Socketio.on("connection", (socket) => {
     var bufferedPlayers = rooms.get(room).players.splice(toRemoveIndex, 1); // remove the player from array and store new list in buffer
     rooms.get(room).players = bufferedPlayers; // overwrite old array with new one
 
-    socket.leave(room); // TODO notify others? Only removes current client from server, but client can still type and other can see it
-    // socket.disconnect(false);
+    socket.leave(room);
   });
 
   socket.on("message", (userName, room, messageText) => {
