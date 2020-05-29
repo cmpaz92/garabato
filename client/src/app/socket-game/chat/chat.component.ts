@@ -29,6 +29,12 @@ export class ChatComponent implements OnInit {
       this.messageArray.push(data);
     });
     this.getRoomsObersv().subscribe();
+    document.body.onkeydown = (e) => {
+      if (e.keyCode === 13) {
+        e.preventDefault();
+        this.sendMessageToChat();
+      }
+    };
   }
 
   join() {
