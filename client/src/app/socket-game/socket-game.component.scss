@@ -1,0 +1,18 @@
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.left {
+  width: 51%;
+  margin-left: 10px;
+ /* background-image: url(../../styles/nb.png);
+  background-size: contain;
+  background-repeat: no-repeat;*/
+}
+
+.right {
+  width: 30%;
+  margin-right: 10px;
+}

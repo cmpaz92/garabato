@@ -1,0 +1,32 @@
+<div class="joincontainer" *ngIf="connected == false"><div class="alert" *ngIf="alert">
+  <span>User & Room are required!</span>
+</div>
+<input [(ngModel)]="user" type="text" placeholder="User" required />
+<input [(ngModel)]="room" type="text" placeholder="Room" required />
+<div class="joinLeave">
+  <button class="joinLeaveButton" (click)="join()">{{ joinTitle }}</button>
+  
+</div>
+</div>
+<div class="chatcontainer" *ngIf="connected">
+  <div class="title">
+    <h1>Chat</h1>
+  </div>
+  <div class="chat">
+    <div class="chatroom">
+      Room: <strong>{{ chatroom }}</strong>
+    </div>
+    <div id="windowchat" class="windowChat">
+      <div class="joinLeaveMessage" *ngFor="let item of messageArray">
+        <span>
+          <strong>{{ item.user }}:</strong>
+          {{ item.message }}
+        </span>
+      </div>
+    </div>
+    <input type="text" id="chatInput" class="messageInHere" [(ngModel)]="messageText" placeholder="Message..." />
+    <button class="sendbtn" (click)="sendMessageToChat()">Send</button>
+    <button class="startbtn"(click)="startGame()">Start Next Round</button>
+    <button class="leavebtn joinLeaveButton" (click)="leave()">Leave</button>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="gamePannel">
+    <p style="text-align:left;">
+        Round Time: <strong>{{ countdownTime }}</strong>
+        <span style="float:right;">
+            Current Word: <strong>{{ currentWord }}</strong>
+        </span>
+    </p>
+</div>
+<canvas #game id="canvas" width="700,5" height="500,5"> 
+
+</canvas>
+<div class="buttonPannel">
+    <button (click)="clearCanvasRequest()">Clear</button>
+</div>
+

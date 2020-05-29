@@ -1,0 +1,164 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+
+
+/* HEX */
+$color1: #44af69ff;
+$color2: #f8333cff;
+$color3: #fcab10ff;
+$color4: #2b9eb3ff;
+$color5: #ebe8d6ff;
+$color6: #f50045ff;
+$color7: #dd2c76ff;
+
+/* HSL */
+$color1: hsla(141, 61%, 69%, 1);
+$color2: hsla(357, 79%, 97%, 1);
+$color3: hsla(39, 94%, 99%, 1);
+$color4: hsla(189, 76%, 70%, 1);
+$color5: hsla(51, 9%, 92%, 1);
+$color6: hsla(343, 100%, 96%, 1);
+$color7: hsla(335, 80%, 87%, 1);
+
+/* RGB */
+$color1: rgba(68, 175, 105, 1);
+$color2: rgba(248, 51, 60, 1);
+$color3: rgba(252, 171, 16, 1);
+$color4: rgba(43, 158, 179, 1);
+$color5: rgba(235, 232, 214, 1);
+$color6: rgba(245, 0, 69, 1);
+$color7: rgba(221, 44, 118, 1);
+
+/* GRADIENT */
+$gradient-top: linear-gradient(0deg, #44af69ff, #f8333cff, #fcab10ff, #2b9eb3ff, #ebe8d6ff, #f50045ff, #dd2c76ff);
+$gradient-right: linear-gradient(90deg, #44af69ff, #f8333cff, #fcab10ff, #2b9eb3ff, #ebe8d6ff, #f50045ff, #dd2c76ff);
+$gradient-bottom: linear-gradient(180deg, #44af69ff, #f8333cff, #fcab10ff, #2b9eb3ff, #ebe8d6ff, #f50045ff, #dd2c76ff);
+$gradient-left: linear-gradient(270deg, #44af69ff, #f8333cff, #fcab10ff, #2b9eb3ff, #ebe8d6ff, #f50045ff, #dd2c76ff);
+$gradient-top-right: linear-gradient(45deg, #44af69ff, #f8333cff, #fcab10ff, #2b9eb3ff, #ebe8d6ff, #f50045ff, #dd2c76ff);
+$gradient-bottom-right: linear-gradient(135deg, #44af69ff, #f8333cff, #fcab10ff, #2b9eb3ff, #ebe8d6ff, #f50045ff, #dd2c76ff);
+$gradient-top-left: linear-gradient(225deg, #44af69ff, #f8333cff, #fcab10ff, #2b9eb3ff, #ebe8d6ff, #f50045ff, #dd2c76ff);
+$gradient-bottom-left: linear-gradient(315deg, #44af69ff, #f8333cff, #fcab10ff, #2b9eb3ff, #ebe8d6ff, #f50045ff, #dd2c76ff);
+$gradient-radial: radial-gradient(#44af69ff, #f8333cff, #fcab10ff, #2b9eb3ff, #ebe8d6ff, #f50045ff, #dd2c76ff);
+
+
+
+@font-face {
+  font-family: "Warwick";
+  src: url(WW.ttf);
+}
+
+html,
+body {
+  background-color: $color5;
+  font-family: "Roboto", sans-serif;
+}
+
+.logo {
+  font-family: "Warwick";
+  margin: 0;
+  font-size: 40px;
+  background: linear-gradient(90deg, $color2, $color3, $color4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.title {
+  padding: 0px 30px;
+  width: fit-content;
+  border-radius: 3px;
+  margin: auto;
+  text-align: center;
+  background-color: white;
+}
+button{
+  &:hover {
+    background-color: #333;
+    transition: 200ms ease;
+    color: white;
+  }
+}
+
+nav {
+  display: flex;
+  margin: 20px;
+  border-radius: 5px;
+  overflow: hidden;
+
+  a {
+    color: #333;
+  }
+  ul {
+    list-style-type: none;
+    margin: auto 15px 0;
+    padding: 0;
+    li {
+      float: left;
+      a {
+        font-size: 18px;
+        text-decoration: none;
+      }
+    }
+  }
+  a,
+  div {
+    padding: 15px;
+  }
+  a.router-link-active {
+    background-color: #a9a9a9;
+    color: #efefef;
+  }
+  a.home {
+    background-color: #ff3b3f;
+  }
+  div {
+    display: contents;
+  }
+  p {
+    margin: 0;
+  }
+}
+.authform {
+  width: 50%;
+  margin: 100px auto;
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 13px;
+  -webkit-box-shadow: 14px 15px 0px -3px#394140;
+  -moz-box-shadow: 14px 15px 0px -3px#394140;
+  box-shadow: 10px 10px 0px -3px rgba(33, 33, 33, 0.3);
+  border-radius: 8px 8px 8px 8px;
+  -moz-border-radius: 8px 8px 8px 8px;
+  -webkit-border-radius: 8px 8px 8px 8px;
+}
+
+form {
+  input {
+    margin-top: 20px;
+    border: none;
+    font-size: 1rem;
+    background-color: transparent;
+    border-bottom: 2px #333 solid;
+    padding-left: 10px;
+    color: #333;
+  }
+  button {
+    display: inline-block;
+    padding: 0.35em 1.2em;
+    border: 0.1em solid #ffffff;
+    margin: 0 0.3em 0.3em 0;
+    background-color: $color4;
+    border-radius: 0.12em;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-weight: 300;
+    color: #ffffff;
+    text-align: center;
+    transition: all 0.2s;
+    height: 40px;
+    width: 80px;
+    margin: 10px;
+
+  }
+}

@@ -1,0 +1,61 @@
+#canvas {
+  padding-left: 0px;
+  margin-left: 0px;
+  border-radius: 7px;
+  background-color: #222;
+  width: 100%;
+}
+
+.items {
+  list-style-type: none;
+  padding-left: 0px;
+  margin-left: 0px;
+}
+
+ul {
+  margin-left: 0px;
+  padding-left: 0px;
+}
+
+button {
+  margin: 5px;
+  height: 30px;
+  box-shadow: none;
+  border: none;
+  background-color: grey;
+  color: white;
+  font-family: "Unica One", cursive;
+  font-size: 1em;
+  cursor: pointer;
+  outline: none;
+  padding: 5px 0px;
+  &:hover {
+    background-color: #333;
+    transition: 200ms ease;
+    color: white;
+  }
+}
+
+.buttonPannel {
+  //background-color: white;
+  border-radius: 7px;
+  padding: 10px 20px 10px 20px;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  button {
+    background-color: rgba(43, 158, 179, 1);
+    &:hover {
+      background-color: #333;
+      transition: 200ms ease;
+      color: white;
+    }
+  }
+}
+
+.gamePannel {
+  color: #333;
+  font-size: 1.5rem;
+  font-family: "Roboto", sans-serif;
+}
