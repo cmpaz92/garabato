@@ -225,8 +225,13 @@ Socketio.on("connection", (socket) => {
   });
 
   socket.on("message", (userName, room, messageText) => {
+    //make messageText lowercase
+    let lowerCaseMessageText = messageText.toLowerCase();
     // check if the message contains the right word
-    if (rooms.get(room).currentWord != "" && messageText.includes((rooms.get(room).currentWord))){
+    if (
+      rooms.get(room).currentWord != "" &&
+      lowerCaseMessageText.includes(rooms.get(room).currentWord)
+    ) {
       var playerIndex = findPlayerByName(room, userName);
       if (rooms.get(room).players[playerIndex].stillGuessing) {
         // player is still guessing and finally got the correct word
@@ -244,10 +249,8 @@ Socketio.on("connection", (socket) => {
     } else {
       Socketio.in(room).emit("new message", {
         user: userName,
-        message: messageText,
+        message: lowerCaseMessageText,
       });
     }
   });
 });
-
-
