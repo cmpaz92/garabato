@@ -1,4 +1,6 @@
 
+# Garabato
+
 ## Project Members:  
 Carlos Paz - S1910629008  
 Matteo Prock - S1910629019  
@@ -11,6 +13,7 @@ to draw in, a chat which allows players to communicate with each other and type 
 and some sort of database/ storage to store the words people have to draw.  
 You will be able to join a game once you logged in with a username, the connection would be  
 handled with web sockets.  
+
 Game Instruction:  
 Once there are at least 2 people in the chat the game can start (e.g. pressing a button). Then one  
 player will be randomly selected – it is his/ her turn to draw this round. He/ She will be able to select  
@@ -21,6 +24,16 @@ compared with the word chosen by the artist. Once you guessed the correct a word
 pop, telling you how many points you got (depending on the time you took to guess the correct  
 word/ how many players got it before you). Once everybody got the correct answer or the time ran  
 out the next artist will be chosen, and the game continues.
+
+## How it works:
+- Register or login with "user" & "123456" to get access to the app
+- Type in a room and join
+- Open a second client browser, register/login & join the same room 
+- The players can send and receive messages in real time
+- With at least two players in the room, the game can be started by pressing the "Start next round" button
+- A random player gets chosen to draw the word that is displayed only to him. Also, only for him the canvas and the clear canvas button is    enabled. The other players have to guess the word
+- If a guessing player enters the correct word in chat, the game is over and a new round can be started
+- This can be repeated as many rounds as the players want to - Have fun! 
 
 # Garabato
 
